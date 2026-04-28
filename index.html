@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Гид по созданию бота или агента</title>
+  <style>
+    :root {
+      --bg: #f5f1e8;
+      --panel: #fffdf8;
+      --line: #ded5c6;
+      --text: #2e2a25;
+      --muted: #71675b;
+      --accent: #1f1e1b;
+      --soft: #e8dfd1;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at top left, rgba(222, 213, 198, 0.6), transparent 35%),
+        linear-gradient(180deg, #f7f3ec 0%, #efe8dc 100%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 20px 72px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+    .card {
+      background: rgba(255, 253, 248, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 12px 30px rgba(62, 51, 39, 0.07);
+    }
+    .eyebrow {
+      font: 12px/1.2 Arial, sans-serif;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    h1, h2, h3 { margin: 0 0 16px; font-weight: 400; }
+    h1 {
+      font-size: clamp(40px, 7vw, 84px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+    p {
+      margin: 0 0 14px;
+      font: 20px/1.6 Arial, sans-serif;
+      color: var(--muted);
+    }
+    .lead {
+      font-size: 18px;
+      max-width: 58ch;
+    }
+    .stat-list,
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+    .stat-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+    .stat,
+    .box {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+    }
+    .stat strong,
+    .box strong {
+      display: block;
+      margin-bottom: 8px;
+      font: 700 12px/1.2 Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+    }
+    .stat span,
+    .box span,
+    .box p,
+    li {
+      font: 16px/1.55 Arial, sans-serif;
+      color: var(--text);
+    }
+    .section {
+      margin-top: 22px;
+    }
+    .section h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 18px;
+    }
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    ul {
+      margin: 0;
+      padding-left: 20px;
+      font: 16px/1.6 Arial, sans-serif;
+      color: var(--text);
+    }
+    .note {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--accent);
+      background: var(--soft);
+      border-radius: 12px;
+      font: 16px/1.6 Arial, sans-serif;
+    }
+    code, pre {
+      font-family: "Courier New", monospace;
+    }
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      padding: 22px;
+      border-radius: 18px;
+      background: #1d1b18;
+      color: #f4efe8;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow: auto;
+    }
+    .footer {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font: 14px/1.6 Arial, sans-serif;
+      color: var(--muted);
+    }
+    @media (max-width: 900px) {
+      .hero, .grid, .stat-list { grid-template-columns: 1fr; }
+      .wrap { padding: 20px 16px 48px; }
+      p { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="card">
+        <div class="eyebrow">Bot / Agent Guide</div>
+        <h1>Как сделать бота или агента без лишней магии</h1>
+        <p class="lead">
+          Это короткий практический гид: какой формат выбрать, как не уйти в фантазии,
+          чем Telegram хуже как единственная опора, и какой prompt использовать как стартовый образец.
+        </p>
+        <div class="stat-list">
+          <div class="stat">
+            <strong>Лучший старт</strong>
+            <span>Onsite-чат или AI-консультант внутри сайта</span>
+          </div>
+          <div class="stat">
+            <strong>Не делать</strong>
+            <span>Не строить всю воронку только на Telegram</span>
+          </div>
+          <div class="stat">
+            <strong>Главное правило</strong>
+            <span>Сначала источники, потом ответы бота</span>
+          </div>
+          <div class="stat">
+            <strong>Формат результата</strong>
+            <span>HTML-guide + prompt sample + repo-ready пакет</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Decision Frame</div>
+        <h2>Что выбрать вместо Telegram-бота</h2>
+        <div class="box">
+          <strong>Onsite-чат</strong>
+          <span>Для быстрых вопросов прямо на сайте</span>
+        </div>
+        <div class="box" style="margin-top:12px;">
+          <strong>AI-консультант</strong>
+          <span>Для ответов по PDF, моделям, базе знаний и FAQ</span>
+        </div>
+        <div class="box" style="margin-top:12px;">
+          <strong>Подборщик</strong>
+          <span>Для сбора параметров и передачи лида в форму</span>
+        </div>
+        <div class="box" style="margin-top:12px;">
+          <strong>Гибрид</strong>
+          <span>Чат + форма подбора как основной B2B-сценарий</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section">
+      <div class="eyebrow">Step by Step</div>
+      <h2>Порядок создания</h2>
+      <div class="grid">
+        <div class="box">
+          <strong>1. Определи роль</strong>
+          <p>Это FAQ-бот, AI-консультант, подборщик, гибрид или лид-форма с логикой?</p>
+        </div>
+        <div class="box">
+          <strong>2. Определи границы</strong>
+          <p>На что бот может отвечать, а где должен честно сказать: данных нет.</p>
+        </div>
+        <div class="box">
+          <strong>3. Собери источники</strong>
+          <p>PDF, карточки моделей, FAQ, контакты, формы, сценарии CTA.</p>
+        </div>
+        <div class="box">
+          <strong>4. Настрой ответы</strong>
+          <p>Короткие, прямые, без фантазий, с маршрутом в консультацию или КП.</p>
+        </div>
+        <div class="box">
+          <strong>5. Настрой fallback</strong>
+          <p>Если данных нет, бот не сочиняет, а переводит в форму или к человеку.</p>
+        </div>
+        <div class="box">
+          <strong>6. Проверь канал</strong>
+          <p>Telegram только как дополнительный маршрут, не как единственный.</p>
+        </div>
+      </div>
+      <div class="note">
+        Telegram может использоваться как дополнительный канал, но критическую коммерческую воронку надежнее держать внутри сайта или в контролируемом продукте.
+      </div>
+    </section>
+
+    <section class="card section">
+      <div class="eyebrow">Prompt Sample</div>
+      <h2>Образец prompt для создания бота</h2>
+      <pre>Create a practical customer-facing assistant for a technical product website.
+
+Goals:
+- answer user questions clearly
+- rely only on confirmed source materials
+- help users request a quote, specification, or consultation
+- reduce hallucinations
+- escalate to a human or form when needed
+
+Rules:
+- do not invent product facts
+- if the answer is not present in the source materials, say that clearly
+- use short, direct, professional wording
+- keep terminology consistent with the source documents
+- treat Telegram as an optional secondary channel, not the only critical channel
+
+Capabilities:
+- answer FAQ
+- explain product models and differences
+- help choose the right model
+- offer CTA paths:
+  - request quote
+  - request specification
+  - get consultation
+  - submit selection request</pre>
+    </section>
+
+    <section class="card section">
+      <div class="eyebrow">Checklist</div>
+      <h2>Что проверить перед запуском</h2>
+      <ul>
+        <li>Бот опирается на подтвержденные материалы, а не на вольные формулировки.</li>
+        <li>Есть сценарий, когда бот не знает ответ и честно это говорит.</li>
+        <li>Есть понятный переход в заявку, КП, спецификацию или менеджеру.</li>
+        <li>Telegram не является единственной критической точкой контакта.</li>
+        <li>Терминология совпадает с продуктовой документацией.</li>
+      </ul>
+    </section>
+
+    <div class="footer">
+      Локальный проектный пакет подготовлен как основа под дальнейшую ручную публикацию в GitHub.
+    </div>
+  </div>
+</body>
+</html>
