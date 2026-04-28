@@ -3,101 +3,723 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEC</title>
+  <title>TES UDFC - Этажные коллекторные узлы TES</title>
+  <meta name="description" content="Этажные коллекторные узлы TES UDFC для многоквартирных домов: заводская сборка, опрессовка 15 бар, подтвержденные модели и PDF-документация.">
   <style>
     :root {
-      --bg: #f6f2ea;
-      --panel: #fffdf8;
-      --line: #ddd3c5;
-      --text: #2b2722;
-      --muted: #6f675d;
-      --accent: #1e1c19;
+      --bg: #f4efe6;
+      --panel: #fbf8f2;
+      --line: #ddd3c6;
+      --text: #26211c;
+      --muted: #6d6458;
+      --accent: #181614;
+      --accent-soft: #e8ddd0;
+      --shadow: 0 16px 40px rgba(48, 39, 27, 0.08);
+      --radius: 24px;
+      --content: 1240px;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(221, 211, 197, 0.6), transparent 34%),
-        linear-gradient(180deg, #f8f4ed 0%, #efe7da 100%);
+        radial-gradient(circle at top left, rgba(214, 202, 184, 0.7), transparent 28%),
+        linear-gradient(180deg, #f9f4ec 0%, #efe6d8 100%);
+      font-family: "Segoe UI", Arial, sans-serif;
     }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
     .wrap {
-      max-width: 980px;
+      width: min(var(--content), calc(100vw - 40px));
       margin: 0 auto;
-      padding: 56px 20px 80px;
-    }
-    .card {
-      background: rgba(255, 253, 248, 0.9);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 12px 28px rgba(57, 46, 33, 0.06);
     }
     .eyebrow {
-      font: 12px/1.2 Arial, sans-serif;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 12px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      color: var(--text);
     }
     h1 {
-      margin: 0 0 18px;
-      font-size: clamp(40px, 8vw, 78px);
-      font-weight: 400;
-      line-height: 0.95;
-      letter-spacing: -0.03em;
+      font-size: clamp(44px, 6vw, 86px);
+      line-height: 0.96;
+    }
+    h2 {
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 1.02;
+    }
+    h3 {
+      font-size: 28px;
+      line-height: 1.1;
     }
     p {
-      margin: 0 0 14px;
-      font: 20px/1.6 Arial, sans-serif;
+      margin: 0;
       color: var(--muted);
-      max-width: 42em;
+      font-size: 19px;
+      line-height: 1.6;
     }
-    .links {
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(249, 244, 236, 0.86);
+      border-bottom: 1px solid rgba(221, 211, 198, 0.9);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 76px;
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand strong {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 32px;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+    }
+    .brand span {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+    .cta-top {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    main { padding: 28px 0 72px; }
+    section { margin-top: 28px; }
+    .panel {
+      background: rgba(251, 248, 242, 0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(320px, 1.05fr) minmax(360px, 0.95fr);
+      gap: 28px;
+      padding: 30px;
+      overflow: hidden;
+    }
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 10px;
+    }
+    .hero-text { max-width: 18ch; }
+    .hero-description { max-width: 46ch; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 16px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .stat-label {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+    .stat-value {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      line-height: 1;
+    }
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 24px;
     }
-    a.button {
-      display: inline-block;
-      padding: 14px 18px;
+    .button-primary, .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 18px;
       border-radius: 12px;
-      border: 1px solid var(--accent);
       text-decoration: none;
-      color: #fff;
-      background: var(--accent);
-      font: 14px/1.2 Arial, sans-serif;
-      letter-spacing: 0.12em;
+      font-size: 13px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
     }
-    a.link {
+    .button-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid var(--accent);
+    }
+    .button-secondary {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: transparent;
+    }
+    .hero-media {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .hero-media img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+    .hero-caption {
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .grid-three {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .benefit-card, .spec-card, .doc-card, .application-card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 253, 248, 0.9);
+    }
+    .benefit-card p, .spec-card p, .doc-card p, .application-card p {
+      margin-top: 12px;
+      font-size: 17px;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+    .section-head p {
+      max-width: 38ch;
+      font-size: 17px;
+    }
+    .section-panel { padding: 28px; }
+    .models {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.72fr) minmax(340px, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .model-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .model-button {
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+    .model-button.active {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+    .model-card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 253, 248, 0.94);
+    }
+    .model-card p + p { margin-top: 10px; }
+    .model-code {
       display: inline-block;
-      padding: 14px 18px;
+      margin-top: 14px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--text);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .gallery-item {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #fff;
+    }
+    .gallery-item img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: #fff;
+    }
+    .gallery-item.tall img { aspect-ratio: 3 / 4; }
+    .gallery-caption {
+      padding: 14px 16px 16px;
+      border-top: 1px solid var(--line);
+    }
+    .gallery-caption strong {
+      display: block;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .gallery-caption p { font-size: 16px; }
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .doc-card a {
+      display: inline-flex;
+      margin-top: 16px;
+      padding: 12px 14px;
       border-radius: 12px;
       border: 1px solid var(--line);
       text-decoration: none;
-      color: var(--text);
-      background: transparent;
-      font: 14px/1.2 Arial, sans-serif;
-      letter-spacing: 0.08em;
+      font-size: 12px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
+    }
+    .footer-cta {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .contact-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .contact-row {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+    .contact-row:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .contact-row strong {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    footer {
+      padding: 18px 0 24px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 1080px) {
+      .hero, .models, .footer-cta { grid-template-columns: 1fr; }
+      .grid-three, .spec-grid, .docs-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 760px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px 0;
+      }
+      nav { gap: 12px; }
+      .hero, .section-panel { padding: 20px; }
+      .stat-grid, .grid-three, .spec-grid, .docs-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .contact-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <section class="card">
-      <div class="eyebrow">TEC / Project Root</div>
-      <h1>TEC</h1>
-      <p>Это корневая страница публичного репозитория проекта. Вспомогательные guide-материалы по ботам сюда не входят и ведутся отдельно.</p>
-      <p>Основной сайт и проектные материалы собираются поэтапно внутри репозитория и локальной рабочей папки.</p>
-      <div class="links">
-        <a class="button" href="https://github.com/Dmitraba/TEC">Открыть GitHub Repo</a>
-        <a class="link" href="site/">Папка site</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#top">
+        <strong>TES</strong>
+        <span>UDFC / этажные коллекторные узлы</span>
+      </a>
+      <nav>
+        <a href="#benefits">Преимущества</a>
+        <a href="#models">Модели</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#specs">Характеристики</a>
+        <a href="#docs">PDF</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="cta-top" href="mailto:info@tesrussia.ru?subject=Запрос%20КП%20по%20UDFC">Запросить КП</a>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <section class="panel hero">
+      <div class="hero-copy">
+        <div class="hero-text">
+          <div class="eyebrow">Готовое решение для МКД</div>
+          <h1>UDFC — этажные коллекторные узлы TES</h1>
+        </div>
+        <p class="hero-description">
+          Готовое решение для многоквартирных жилых домов с двухтрубной горизонтальной разводкой систем отопления и водоснабжения. Узлы поставляются в собранном виде и проходят опрессовку.
+        </p>
+        <div class="stat-grid">
+          <div class="stat">
+            <span class="stat-label">Рабочее давление</span>
+            <span class="stat-value">10 бар</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Испытание</span>
+            <span class="stat-value">15 бар</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Температура</span>
+            <span class="stat-value">90 °C</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Отводов</span>
+            <span class="stat-value">2–10</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="button-primary" href="#docs">Открыть PDF моделей</a>
+          <a class="button-secondary" href="mailto:info@tesrussia.ru?subject=Запрос%20спецификации%20по%20UDFC">Запросить спецификацию</a>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <img src="site/assets/images/hero-udfc.png" alt="Этажный коллекторный узел TES UDFC">
+        <figcaption class="hero-caption">Реальное фото изделия из проектного пакета</figcaption>
+      </figure>
+    </section>
+
+    <section id="benefits" class="panel section-panel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Подтвержденные преимущества</div>
+          <h2>Что уже подтверждено по TES</h2>
+        </div>
+        <p>Ниже только те тезисы, которые уже подтверждены материнской страницей TES и локальными материалами проекта.</p>
+      </div>
+      <div class="grid-three">
+        <article class="benefit-card">
+          <h3>Заводская сборка</h3>
+          <p>Узлы поставляются в собранном виде и готовы к дальнейшему монтажу на объекте.</p>
+        </article>
+        <article class="benefit-card">
+          <h3>Опрессовка 15 бар</h3>
+          <p>Каждое изделие проходит опрессовку при 15 бар до поставки.</p>
+        </article>
+        <article class="benefit-card">
+          <h3>Гидравлические расчеты</h3>
+          <p>Система рассчитана для поддержания заданных гидравлических параметров.</p>
+        </article>
+        <article class="benefit-card">
+          <h3>Диспетчеризация</h3>
+          <p>Поддерживается возможность диспетчеризации и дальнейшей интеграции учета.</p>
+        </article>
+        <article class="benefit-card">
+          <h3>Сервисные операции</h3>
+          <p>Предусмотрены операции выпуска воздуха, дренажа и отключения потребителя или узла.</p>
+        </article>
+        <article class="benefit-card">
+          <h3>Индивидуальные исполнения</h3>
+          <p>В проекте уже подтверждены разные конфигурации UDFC под диаметр и количество отводов.</p>
+        </article>
       </div>
     </section>
+
+    <section id="applications" class="panel section-panel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Сценарии применения</div>
+          <h2>Отопление и водоснабжение</h2>
+        </div>
+        <p>Обе ветки подтверждены локальными DOCX-материалами проекта. Ниже только краткая рабочая сводка.</p>
+      </div>
+      <div class="grid-three">
+        <article class="application-card">
+          <h3>Для отопления</h3>
+          <p>Подключение квартирных систем отопления к централизованному источнику, поддержание гидравлических параметров и возможность поэтапного ввода потребителей в эксплуатацию.</p>
+        </article>
+        <article class="application-card">
+          <h3>Для водоснабжения</h3>
+          <p>Распределение и учет холодной и горячей воды по отдельным потребителям с возможностью подключения и отключения отдельных веток.</p>
+        </article>
+        <article class="application-card">
+          <h3>Для МКД</h3>
+          <p>Решение ориентировано на многоквартирные жилые дома с двухтрубной горизонтальной разводкой инженерных систем.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="models" class="panel section-panel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Подтвержденные модели</div>
+          <h2>6 PDF уже привязаны к проекту</h2>
+        </div>
+        <p>На этом этапе сайт использует только локально подтвержденные модели. Точные чертежи и размеры открываются через PDF по выбранной позиции.</p>
+      </div>
+      <div class="models">
+        <div>
+          <div id="model-list" class="model-list">
+            <button class="model-button active" type="button" data-model="UDFC-40-2R-25-25M-E-15-H" data-pdf="site/assets/docs/models/UDFC-40-2R-25-25M-E-15-H.pdf">UDFC-40-2R-25-25M-E-15-H</button>
+            <button class="model-button" type="button" data-model="UDFC-40-8R-25-25M-E-15-H" data-pdf="site/assets/docs/models/UDFC-40-8R-25-25M-E-15-H.pdf">UDFC-40-8R-25-25M-E-15-H</button>
+            <button class="model-button" type="button" data-model="UDFC-50-2L-25-20-20-15" data-pdf="site/assets/docs/models/UDFC-50-2L-25-20-20-15.pdf">UDFC-50-2L-25-20-20-15</button>
+            <button class="model-button" type="button" data-model="UDFC-50-3L-25-20-20-15" data-pdf="site/assets/docs/models/UDFC-50-3L-25-20-20-15.pdf">UDFC-50-3L-25-20-20-15</button>
+            <button class="model-button" type="button" data-model="UDFC-50-7L-25-20-20-15" data-pdf="site/assets/docs/models/UDFC-50-7L-25-20-20-15.pdf">UDFC-50-7L-25-20-20-15</button>
+            <button class="model-button" type="button" data-model="UDFC-50-8L-25-20-20-15" data-pdf="site/assets/docs/models/UDFC-50-8L-25-20-20-15.pdf">UDFC-50-8L-25-20-20-15</button>
+          </div>
+        </div>
+        <article class="model-card">
+          <div class="eyebrow">Текущая модель</div>
+          <h3 id="model-title">UDFC-40-2R-25-25M-E-15-H</h3>
+          <p>Для сайта на этом этапе сохраняются только подтвержденные коды моделей. Все точные размеры, состав и чертежи открываются из PDF по выбранной позиции.</p>
+          <p>Общие подтвержденные параметры семейства: рабочее давление 10 бар, опрессовка 15 бар, максимальная рабочая температура 90 °C, диапазон отводов 2–10.</p>
+          <span class="model-code" id="model-code">PDF привязан: UDFC-40-2R-25-25M-E-15-H</span>
+          <div class="hero-actions" style="margin-top:18px;">
+            <a class="button-primary" id="model-pdf-link" href="site/assets/docs/models/UDFC-40-2R-25-25M-E-15-H.pdf" target="_blank" rel="noopener">Открыть PDF модели</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="gallery" class="panel section-panel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Реальные изображения</div>
+          <h2>Фотопакет для сайта</h2>
+        </div>
+        <p>Ниже использованы реальные изображения из проектной подборки: общий вид, дополнительные ракурсы, фото на объекте и отдельная деталь.</p>
+      </div>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="site/assets/images/gallery-main-1.jpg" alt="Коллекторный узел TES UDFC, дополнительный ракурс">
+          <figcaption class="gallery-caption">
+            <strong>Галерея 01</strong>
+            <p>Дополнительный общий ракурс изделия на белом фоне.</p>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="site/assets/images/gallery-main-2.png" alt="Коллекторный узел TES UDFC, общий вид">
+          <figcaption class="gallery-caption">
+            <strong>Галерея 02</strong>
+            <p>Вариант конфигурации для продуктового блока.</p>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="site/assets/images/gallery-main-3.png" alt="Коллекторный узел TES UDFC, широкий ракурс">
+          <figcaption class="gallery-caption">
+            <strong>Галерея 03</strong>
+            <p>Широкий ракурс для дополнительной галереи.</p>
+          </figcaption>
+        </figure>
+        <figure class="gallery-item tall">
+          <img src="site/assets/images/context-installation.jpg" alt="Коллекторный узел TES UDFC на объекте">
+          <figcaption class="gallery-caption">
+            <strong>Монтажный контекст</strong>
+            <p>Фото изделия на объекте для блока применения.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="specs" class="panel section-panel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Общие характеристики</div>
+          <h2>Только подтвержденные значения</h2>
+        </div>
+        <p>Ниже общие параметры семейства UDFC, которые уже подтверждены материнской страницей TES и локальными проектными материалами.</p>
+      </div>
+      <div class="spec-grid">
+        <article class="spec-card">
+          <h3>Давление</h3>
+          <p>Рабочее давление — 10 бар. Испытательное давление — 15 бар.</p>
+        </article>
+        <article class="spec-card">
+          <h3>Температура</h3>
+          <p>Максимальная рабочая температура — 90 °C.</p>
+        </article>
+        <article class="spec-card">
+          <h3>Отводы</h3>
+          <p>Подтвержденный диапазон по семейству — от 2 до 10 отводов.</p>
+        </article>
+        <article class="spec-card">
+          <h3>Перепад давления</h3>
+          <p>Диапазон поддержания перепада давления — 5–30 кПа.</p>
+        </article>
+        <article class="spec-card">
+          <h3>Межосевое расстояние</h3>
+          <p>Подтвержденные значения — 50 / 100 / 150 мм.</p>
+        </article>
+        <article class="spec-card">
+          <h3>Материал коллектора</h3>
+          <p>В проектных материалах подтверждены Сталь 20 и AISI 304.</p>
+        </article>
+      </div>
+      <div style="margin-top:18px;" class="gallery-item">
+        <img src="site/assets/images/detail-component.png" alt="Отдельный компонент коллекторного узла TES UDFC">
+        <div class="gallery-caption">
+          <strong>Техническая деталь</strong>
+          <p>Отдельный компонент из проектного набора изображений.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="docs" class="panel section-panel">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Документация</div>
+          <h2>PDF по подтвержденным моделям</h2>
+        </div>
+        <p>Сайт уже привязан к 6 локальным PDF. Это рабочая база под дальнейшую расширенную версию с формой заявки и детальным модельным блоком.</p>
+      </div>
+      <div class="docs-grid">
+        <article class="doc-card">
+          <h3>UDFC-40-2R-25-25M-E-15-H</h3>
+          <p>Подтвержденный PDF по модели.</p>
+          <a href="site/assets/docs/models/UDFC-40-2R-25-25M-E-15-H.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+        </article>
+        <article class="doc-card">
+          <h3>UDFC-40-8R-25-25M-E-15-H</h3>
+          <p>Подтвержденный PDF по модели.</p>
+          <a href="site/assets/docs/models/UDFC-40-8R-25-25M-E-15-H.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+        </article>
+        <article class="doc-card">
+          <h3>UDFC-50-2L-25-20-20-15</h3>
+          <p>Подтвержденный PDF по модели.</p>
+          <a href="site/assets/docs/models/UDFC-50-2L-25-20-20-15.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+        </article>
+        <article class="doc-card">
+          <h3>UDFC-50-3L-25-20-20-15</h3>
+          <p>Подтвержденный PDF по модели.</p>
+          <a href="site/assets/docs/models/UDFC-50-3L-25-20-20-15.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+        </article>
+        <article class="doc-card">
+          <h3>UDFC-50-7L-25-20-20-15</h3>
+          <p>Подтвержденный PDF по модели.</p>
+          <a href="site/assets/docs/models/UDFC-50-7L-25-20-20-15.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+        </article>
+        <article class="doc-card">
+          <h3>UDFC-50-8L-25-20-20-15</h3>
+          <p>Подтвержденный PDF по модели.</p>
+          <a href="site/assets/docs/models/UDFC-50-8L-25-20-20-15.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacts" class="panel section-panel footer-cta">
+      <div>
+        <div class="eyebrow">Контакт и следующий шаг</div>
+        <h2>Запрос КП или спецификации</h2>
+        <p>На этом этапе сайт уже можно публиковать как рабочий одностраничник с реальными фото, подтвержденными моделями и PDF-документацией. Следующее расширение — форма заявки и более глубокий модельный блок.</p>
+        <div class="hero-actions" style="margin-top:22px;">
+          <a class="button-primary" href="mailto:info@tesrussia.ru?subject=Запрос%20КП%20по%20UDFC">Запросить КП</a>
+          <a class="button-secondary" href="mailto:info@tesrussia.ru?subject=Запрос%20спецификации%20по%20UDFC">Запросить спецификацию</a>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="eyebrow">Подтвержденные контакты</div>
+        <div class="contact-list">
+          <div class="contact-row">
+            <strong>Телефон</strong>
+            <a href="tel:+74993221867">+7 (499) 322-18-67</a>
+          </div>
+          <div class="contact-row">
+            <strong>Email</strong>
+            <a href="mailto:info@tesrussia.ru">info@tesrussia.ru</a>
+          </div>
+          <div class="contact-row">
+            <strong>Адрес</strong>
+            <span>г. Москва, Старопетровский проезд, 7а, стр 25, пд 2</span>
+          </div>
+          <div class="contact-row">
+            <strong>Источник</strong>
+            <a href="https://www.tesrussia.ru/catalog/etazhnye-kollektornye-uzly-tes/" target="_blank" rel="noopener">Материнская страница TES</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="wrap">
+      Публичный draft собран только на подтвержденных материалах проекта TES: реальные фото, локальные PDF и проверенная сводка по источникам.
+    </footer>
   </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.model-button');
+    const title = document.getElementById('model-title');
+    const code = document.getElementById('model-code');
+    const pdfLink = document.getElementById('model-pdf-link');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        buttons.forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        title.textContent = button.dataset.model;
+        code.textContent = 'PDF привязан: ' + button.dataset.model;
+        pdfLink.href = button.dataset.pdf;
+      });
+    });
+  </script>
 </body>
 </html>
